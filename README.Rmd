@@ -1,20 +1,19 @@
 ---
-title: "Timbre data (2012)"
-knit: (function(input_file, encoding) {
-  out_dir <- 'docs';
-  rmarkdown::render(input_file,
- encoding=encoding,
- output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
-output:
-  html_document:
-    toc: false
-    toc_depth: 2
-    number_sections: false
-    theme: united
-    highlight: tango
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "75%"
+)
+```
+
+# Timbre2012
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
