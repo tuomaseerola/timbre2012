@@ -1,0 +1,139 @@
+---
+title: "Timbre data (2012)"
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+output:
+  html_document:
+    toc: false
+    toc_depth: 2
+    number_sections: false
+    theme: united
+    highlight: tango
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "75%"
+)
+```
+
+This repository contains data related to study
+
+Eerola, T., Ferrer, R., & Alluri, V. (2012). Timbre and affect dimensions: Evidence from affect and similarity ratings and acoustic correlates of isolated instrument sounds. *Music Perception, 30(1)*, 49-70. [https://doi.org/10.1525/mp.2012.30.1.49](https://doi.org/10.1525/mp.2012.30.1.49)
+
+The data was collected many moons ago and analysed with Matlab. I've tried to export the summary data to CSV files to be more accessible to others. In Experiment 3, the archived data in my backup does not match the N reported in the paper (I have 24, paper reports 27). This could be down trimming outliers differently or not saving the full data by the first author.
+
+The study is organised into three experiments:
+
+* **Experiment 1** is about rating 110 short instrument sounds from MUMS in terms of affects
+* **Experiment 2** is a subset of the Experiment 2 sounds that were rated without hearing the sounds (imagery condition)
+* **Experiment 3** is a set of 105 sounds from VSL that have various dynamic and timbral alterations. These were rated in the same way as Experiment 1.
+
+The data is kept in the `data` folder of this repository as csv files. 
+
+# Experiment 1
+
+`exp1_mean_ratings.csv` contains the mean ratings of several concepts of 110 sounds from 29 participants. In this data, `nro` is runnning number for each instrument (links with audio files), the ratings have been done on a scale of 1 to 9. The `instrument` columns gives the name of the instrument.
+
+
+```{r,message=FALSE,warning=FALSE}
+d1 <- read.csv('data/exp1_mean_ratings.csv')
+knitr::kable(d1[1:4,],digits = 2)
+knitr::kable(cor(d1[,2:5]),digits = 2,
+             caption = 'Table 1 Correlations Between the Affect Ratings (from paper, p. 52).')
+```
+
+The audio files are available at `exp1.zip`, which contains wave files numbered from `1.wav .... 110.wav`, which have been originally obtained from MUMS (McGill University Musical Instruments).
+
+# Experiment 2
+
+`mds_rotated.csv` contains the rotated solution from the mean similarity ratings of 18 most popular instruments 13 participants.
+
+```{r,message=FALSE,warning=FALSE,cache=FALSE,fig.cap='Figure 3. MDS solution (from p. 56)'}
+d2 <- read.csv('data/mds_rotated.csv')
+knitr::kable(d2[1:4,],digits = 2)
+
+library(ggrepel)
+g2<-ggplot(d2,aes(x=dim1,y=dim2,label=names))+
+  geom_point()+
+  geom_label_repel(min.segment.length = 0.2)+
+  coord_fixed()+
+  theme_bw()
+g2
+```
+
+# Experiment 3
+
+`exp3_mean_ratings.csv` contains mean ratings of several concepts of 105 sounds from 24 participants. <span style="color:red">NOTE: Data in my archives has only 24 participants while the paper reports 27. There will be minor discrepancies in the correlations due to this. </span>
+
+These 105 sounds are divided into subsets and articulations. The ratings have been done on a scale of 1 to 9. `subset` refers to subset 1, 2 or 3 (1 = "Forte", 2 = "Mezzo Forte", 3 = "Brightness Increase") that contain the timbre manipulation of the sounds.
+
+`articulation` refers playing style (Plain, Legato, Vibrato, Pizzicato, Staccato, Sforzato, Marcato) and `instruments` is a label for the actual instrument (Bassoon, Cello, Clarinet, Flute, Horn, Marimba, Oboe, Oboe Solo, Trombone, Trumpet, Vibraphone, or Violin).
+
+
+```{r,message=FALSE,warning=FALSE,cache=FALSE}
+d3 <- read.csv('data/exp3_mean_ratings.csv')
+d3$subset <- factor(d3$subset,levels = c(1,2,3),labels = c("Subset 1 (f)", " Subset 2 (mf)","Subset 3 (f*"))
+knitr::kable(d3[1:4,],digits = 2)
+```
+
+### Data check
+
+```{r,message=FALSE,warning=FALSE,cache=FALSE,fig.cap='Figure 6 mean ratings across articulation styles (p. 60)'}
+knitr::kable(cor(d3[,2:5]),digits = 2,caption = 'Table 5 Correlations Between the Affect Ratings (from paper, p. 59).')
+library(tidyr)
+library(ggplot2)
+library(dplyr)
+library(Hmisc)
+
+g1 <- d3 %>% 
+  group_by(articulation) %>%
+  summarise(mean= mean(valence),ci = mean_cl_normal(valence)) %>% 
+  ggplot(aes(x = articulation,y = mean,fill=articulation))+
+  geom_col(colour='black',show.legend = FALSE)+
+  scale_y_continuous(breaks = seq(1,7,by=1), expand = c(0,0))+
+  geom_errorbar(aes(ymin=ci$ymin,ymax=ci$ymax),width=0.5)+
+  scale_fill_grey(start=.25,end=.75)+
+  coord_cartesian(ylim = c(1, 9)) +
+  ggtitle('Valence')+
+  ylab('Mean ± 95% CI')+
+  xlab('Articulation')+
+  theme_bw()
+print(g1)
+```
+
+```{r,message=FALSE,warning=FALSE,cache=FALSE,fig.cap='Figure 5 mean ratings across the three subsets (p. 60)'}
+
+
+g2 <- d3 %>% 
+  group_by(subset) %>%
+  summarise(mean= mean(valence),ci = mean_cl_normal(valence)) %>% 
+  ggplot(aes(x = subset,y = mean,fill=subset))+
+  geom_col(colour='black',show.legend = FALSE)+
+  scale_y_continuous(breaks = seq(1,7,by=1), expand = c(0,0))+
+  geom_errorbar(aes(ymin=ci$ymin,ymax=ci$ymax),width=0.5)+
+  scale_fill_grey(start=.25,end=.75)+
+  coord_cartesian(ylim = c(1, 9)) +
+  ggtitle('Valence')+
+  ylab('Mean ± 95% CI')+
+  xlab('Subset')+
+  theme_bw()
+print(g2)
+
+```
+
+The soundfiles are available in `exp3.zip`, which contains wave files numbered from`1.wav .... 105.wav`. These sounds are from VSL Kontakt Orchestra (the $F_0$ is always D#).
+
+### Acoustic features
+
+Extraction of the acoustic features should be redone from the audio files as the toolboxes have moved on. I believe the acoustic features were extracted with _MIR Toolbox version 1.2.4_ in 2011.
+
+
