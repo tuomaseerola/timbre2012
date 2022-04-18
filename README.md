@@ -1,17 +1,14 @@
-# The Anatomy of Consonance/Dissonance
+# Timbre data (2012)
 
 This repository contains data and analyses related to study
 
-> Eerola, T. & Lahdelma, I. (2021). The Anatomy of Consonance/Dissonance: Evaluating Acoustic and Cultural Predictors Across Multiple Datasets with Chords. _Music & Science_, https://doi.org/10.1177/20592043211030471
+> Eerola, T., Ferrer, R., & Alluri, V. (2012). Timbre and affect dimensions: Evidence from affect and similarity ratings and acoustic correlates of isolated instrument sounds. Music Perception, 30(1), 49-70. https://doi.org/10.1525/mp.2012.30.1.49
 
+The data was collected many moons ago and analysed with Matlab. I’ve tried to export the summary data to CSV files to be more accessible to others. In Experiment 3, the archived data in my backup does not match the N reported in the paper (I have 24, paper reports 27). This could be down trimming outliers differently or not saving the full data by the first author.
 
 The study is organised into three experiments:
 
-* Experiment 1 relates to [Durham Chord Dataset](https://github.com/tuomaseerola/DCD)
-* Experiment 2 to the analysis of three datasets (`lah20a`,`lah20b`,`pop19`)
-* Experiment 3 to the analysis of nine datasets
-
-The data is kept in the `data` folder of this repository as csv files. The exception is DCD data for Experiment 1, which is found in [DCD](https://github.com/tuomaseerola/DCD), also stored as csv file. 
-
-The R scripts will replicate all analyses in the manuscript and offer several alternative analyses. You can access the compiled output (results, figures) of the analyses at the [docs](https://tuomaseerola.github.io/anatomy-of-consonance/), which is created by [README.Rmd](README.Rmd) file.
+* Experiment 1 is about rating 110 short instrument sounds from MUMS in terms of affects
+* Experiment 2 is a subset of the Experiment 2 sounds that were rated without hearing the sounds (imagery condition)
+* Experiment 3 is a set of 105 sounds from VSL that have various dynamic and timbral alterations. These were rated in the same way as Experiment 1.
 
