@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Timbre2012
+# timbre2012
 
 This repository contains data related to study
 
@@ -96,7 +96,7 @@ g2
 
 <div class="figure">
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" alt="Figure 3. MDS solution (from p. 56)" width="75%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" alt="Figure 3. MDS solution (from p. 56)" width="75%" />
 <p class="caption">
 Figure 3. MDS solution (from p. 56)
 </p>
@@ -172,7 +172,7 @@ print(g1)
 
 <div class="figure">
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" alt="Figure 6 mean ratings across articulation styles (p. 60)" width="75%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" alt="Figure 6 mean ratings across articulation styles (p. 60)" width="75%" />
 <p class="caption">
 Figure 6 mean ratings across articulation styles (p. 60)
 </p>
@@ -199,7 +199,7 @@ print(g2)
 
 <div class="figure">
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" alt="Figure 5 mean ratings across the three subsets (p. 60)" width="75%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" alt="Figure 5 mean ratings across the three subsets (p. 60)" width="75%" />
 <p class="caption">
 Figure 5 mean ratings across the three subsets (p. 60)
 </p>

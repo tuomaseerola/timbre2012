@@ -13,16 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Timbre2012
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "75%"
-)
-```
+# timbre2012
 
 This repository contains data related to study
 
